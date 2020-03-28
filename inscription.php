@@ -24,6 +24,7 @@ if (isset($_POST["valider"])) {
   } else {
     $stateMsg = "Les mots de passe ne correspondent pas, veuillez r&eacute;essayer";
   }
+  echo $stateMsg;
 }
 
 ?>
@@ -38,24 +39,37 @@ if (isset($_POST["valider"])) {
 </head>
 
 <body>
-  <!-- à compléter -->
-  <?php
-  session_start();
-  ?>
+  <style>
+    body {
+      width: 50%;
+      padding: 10% 22%;
+      justify-content: center;
+      /* text-align: center; */
+    }
+  </style>
 
+  <!-- à compléter -->
+  <h1 style="text-align: center;">Inscription à la BDW</h1>
   <form action="inscription.php" style="border:1px solid #ccc" method="POST">
     <div class="container">
-      <label for="pseudo"><b>Pseudo souhaité:</b></label>
-      <input type="text" placeholder="Entrer un pseudo" name="pseudo" required>
-
-      <label for="mdp"><b>Mot de passe:</b></label>
-      <input type="password" placeholder="Entrer MDP" name="mdp" required>
-
-      <label for="psw-repeat"><b>Confirmer mot de passe:</b></label>
-      <input type="password" placeholder="Repeat Password" name="mdp-repeat" required>
-
-      <button type="button" class="cancelbtn">Cancel</button>
-      <button type="submit" class="signupbtn">S'inscrice</button>>
+      <div class="fillform" style="margin: 1rem;">
+        <label for="pseudo"><b>Pseudo souhaité:</b></label>
+        <input type="text" placeholder="Entrer un pseudo" name="pseudo" required>
+        <br>
+        <br>
+        <label for="mdp"><b>Mot de passe:</b></label>
+        <input type="password" placeholder="Entrer MDP" name="mdp" required>
+        <br>
+        <br>
+        <label for="psw-repeat"><b>Confirmer mot de passe:</b></label>
+        <input type="password" placeholder="Confirmer mdp" name="mdp-repeat" required>
+        <br>
+        <br>
+      </div>
+      <div class="butt" style="text-align: center; margin: 1rem;">
+        <button type="button" class="cancelbtn">Cancel</button>
+        <button type="submit" class="valider">S'inscrice</button>
+      </div>
     </div>
   </form>
 
