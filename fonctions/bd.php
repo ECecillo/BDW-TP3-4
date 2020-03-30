@@ -28,7 +28,10 @@ qu'une requête SQL SELECT et renvoie les résultats de la requête. Si le résu
 function executeQuery($link, $query)
 {
 	 // Perform query
-	if ($result = mysqli_query($link, $query, MYSQLI_USE_RESULT)) {
+
+	//echo "req: $query";
+	 /* 
+	 if ($result = mysqli_query($link, $query, MYSQLI_USE_RESULT)) {
 		if (!mysqli_query($link, "SET @a:='this will not work'")) {
 			printf("Erreur : %s\n", mysqli_error($link));
 		}
@@ -37,16 +40,15 @@ function executeQuery($link, $query)
 			print_r($row);
 		}
 	}
-	echo "req: $query";
 	mysqli_free_result($result);
-	} 
-	/*
+	}
+	 */ 
+
     $result = mysqli_query($link, $query);
     if(!$result){
         echo "La requete ".$query." n'a pas pu etre executee a cause d'une erreur de syntaxe";
     }
 	return $result;
-	*/
 }
 
 /*Cette fonction prend en entrée une connexion vers la base de données du chat ainsi 
