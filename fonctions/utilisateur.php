@@ -4,7 +4,7 @@
 retourne vrai si le pseudo est disponible (pas d'occurence dans les données existantes), faux sinon*/
 function checkAvailability($pseudo, $link)
 {
-	$sql_REQ = "SELECT pseudo FROM utilisateur WHERE pseudo='". $pseudo ."';";
+	$sql_REQ = "SELECT pseudo FROM utilisateur WHERE pseudo='$pseudo';";
 	$sql = executeQuery($link, $sql_REQ);
 	if (mysqli_num_rows($sql) >= 1) {
 		return false;
@@ -20,19 +20,23 @@ function checkAvailability($pseudo, $link)
 array('red', 'green', 'blue', 'black', 'yellow', 'orange') et enregistre le nouvel utilisateur dans la relation utilisateur via la connexion*/
 function register($pseudo, $hashPwd, $link)
 {
+	if (checkAvailability($pseudo, $link)) {
+
   $color = array('red', 'blue', 'yellow', 'black', 'orange', 'green');
-  $index = rand(0, 5);
-  $color = $color[$index];
-  $query = "INSERT INTO utilisateur VALUES (\"$pseudo\", \"$hashPwd\", \"$color\", 'disconnected');";
-  executeQuery($link, $query);
+  $Aleast = $color[rand(0, 5)];
+  $query = "INSERT INTO utilisateur (pseudo, mdp, couleur,etat) VALUES ('$pseudo', '$hashPwd', '$Aleast', 'disconnected');";
+  executeUpdate($link, $query);
+  }
+  else {
+	  echo"Impossible d'enregistrer l'utilisateur avec un pseudo déjà utilisé";
+  }
 }
 
 /*Cette fonction prend en entrée un pseudo d'utilisateur et change son état en 'connected' dans la relation 
 utilisateur via la connexion*/
 function setConnected($pseudo, $link)
 {
-	$query = "UPDATE utilisateur SET etat = 'connected' WHERE pseudo = \"$pseudo\"; ";
-	executeQuery($link, $query);
+	$query = "UPDATE utilisateur SET etat = 'connected' WHERE pseudo = '$pseudo'; ";
 	executeUpdate($link, $query);
 }
 
@@ -40,9 +44,9 @@ function setConnected($pseudo, $link)
 function getUser($pseudo, $hashPwd, $link)
 {
 	// à compléter
-	$query = "SELECT pseudo FROM utilisateur WHERE pseudo = ".$pseudo." AND mdp = ".$hashPwd." AND etat = 'disconnected';";
+	$query = "SELECT * FROM utilisateur WHERE pseudo = '$pseudo' AND mdp = '$hashPwd' AND etat = 'disconnected';";
 	$result = executeQuery($link, $query);
-	if (mysqli_num_rows($result) >= 1) {
+	if (executeQuery($link, $query) != NULL) {
 		return false;
 	} else {
 		return true;

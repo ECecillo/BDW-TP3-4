@@ -11,8 +11,6 @@ if (isset($_POST["valider"])) {
   $hashConfirmMdp = md5($_POST["mdp-repeat"]);
 
   $link = getConnection($dbHost, $dbUser, $dbPwd, $dbName);
-
-  $available = checkAvailability($pseudo, $link);
   echo register($pseudo, $hashMdp, $link);
 
   if ($hashMdp == $hashConfirmMdp) {
