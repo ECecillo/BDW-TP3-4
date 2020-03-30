@@ -20,7 +20,7 @@ function checkAvailability($pseudo, $link)
 array('red', 'green', 'blue', 'black', 'yellow', 'orange') et enregistre le nouvel utilisateur dans la relation utilisateur via la connexion*/
 function register($pseudo, $hashPwd, $link)
 {
-	if (checkAvailability($pseudo, $link)) {
+	/* if (checkAvailability($pseudo, $link)) {
 
   $color = array('red', 'blue', 'yellow', 'black', 'orange', 'green');
   $Aleast = $color[rand(0, 5)];
@@ -29,7 +29,16 @@ function register($pseudo, $hashPwd, $link)
   }
   else {
 	  echo"Impossible d'enregistrer l'utilisateur avec un pseudo déjà utilisé";
+  } */
+  if (checkAvailability($pseudo, $link)) {
+	$color = array('red', 'blue', 'yellow', 'black', 'orange', 'green');
+  $Aleast = $color[rand(0, 5)];
+  $query = "INSERT INTO utilisateur (pseudo, mdp, couleur,etat) VALUES ('$pseudo', '$hashPwd', '$Aleast', 'disconnected');";
+  executeUpdate($link, $query);
   }
+  else {
+	  echo"Impossible d'enregistrer l'utilisateur avec un pseudo déjà utilisé";
+  }	
 }
 
 /*Cette fonction prend en entrée un pseudo d'utilisateur et change son état en 'connected' dans la relation 
@@ -47,9 +56,9 @@ function getUser($pseudo, $hashPwd, $link)
 	$query = "SELECT * FROM utilisateur WHERE pseudo = '$pseudo' AND mdp = '$hashPwd' AND etat = 'disconnected';";
 	$result = executeQuery($link, $query);
 	if (executeQuery($link, $query) != NULL) {
-		return false;
-	} else {
 		return true;
+	} else {
+		return false;
 	}
 }
 
