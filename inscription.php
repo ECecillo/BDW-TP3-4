@@ -11,21 +11,18 @@ if (isset($_POST["valider"])) {
   $hashConfirmMdp = md5($_POST["mdp-repeat"]);
 
   $link = getConnection($dbHost, $dbUser, $dbPwd, $dbName);
-  echo register($pseudo, $hashMdp, $link);
+  $available = checkAvailability($pseudo, $link);
 
-  if ($hashMdp == $hashConfirmMdp) {
-    if ($available) {
+    if ($available && ($hashMdp == $hashConfirmMdp)) {
       register($pseudo, $hashMdp, $link);
       header('Location: index.php?subscribe=yes');
-    } else {
-      $stateMsg = "Le pseudo demand&eacute; est d&eacute;j&agrave; utilis&eacute;";
+      exit();
+    } 
+    else {
+      echo "Le pseudo demandé ou le mdp n'est pas disponible";
     }
-  } else {
-    $stateMsg = "Les mots de passe ne correspondent pas, veuillez r&eacute;essayer";
-  }
-  echo $stateMsg;
 }
-echo isset($_POST["valider"]);
+// echo isset($_POST["valider"]);
 ?>
 
 <!doctype html>

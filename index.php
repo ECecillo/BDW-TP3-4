@@ -18,6 +18,7 @@ if (isset($_POST["valider"])) {
   if ($check) {
     setConnected($pseduo, $link);
     header('Location: chat.php?subscribe=yes');
+    exit();
   } else {
     $stateMsg = "Le couple pseudo/mot de passe ne correspond à aucun utilisateur enregistré";
   }
