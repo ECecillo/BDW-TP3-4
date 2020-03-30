@@ -44,11 +44,22 @@ function executeQuery($link, $query)
 	}
 	 */ 
 
-    $result = mysqli_query($link, $query);
+    /* $result = mysqli_query($link, $query);
     if(!$result){
         echo "La requete ".$query." n'a pas pu etre executee a cause d'une erreur de syntaxe";
     }
 	return $result;
+ */
+	try {
+		$sth = $link->prepare($query);
+		$sth->execute(array());
+		$res = $sth->fetchAll();
+
+		return $res;
+	} catch (PDOException $e) {
+		$erreur = $e->getMessage();
+		echo"Erreur requête";
+	}
 }
 
 /*Cette fonction prend en entrée une connexion vers la base de données du chat ainsi 
@@ -56,7 +67,7 @@ qu'une requête SQL INSERT/UPDATE/DELETE et ne renvoie rien si la mise à jour a
 message d'erreur est affiché.*/
 function executeUpdate($link, $query)
 {
-	echo "req: $query";
+	/* echo "req: $query";
 	if($link == NULL){
 		printf("Echec de update (connexion)");
 	}
@@ -64,12 +75,28 @@ function executeUpdate($link, $query)
 	if (!mysqli_query($link, $query)) {
 			echo "Error updating record: " . mysqli_error($link);
 		}
+	 */
 	
+	try {
+		$sth = $link->prepare($query);
+		$sth->execute();
+
+		return $sth;
+	} catch (PDOException $e) {
+		$erreur = $e->getMessage();
+		echo"Erreur requête";
+	}
 }
 
 /*Cette fonction ferme la connexion active $link passée en entrée*/
 function closeConnexion($link)
 {
 	// à compléter
-	mysqli_close($link);
+//	mysqli_close($link);
+	try {
+		$link = null;
+
+	}catch (PDOException $e) {
+		$erreur = $e->getMessage();
+	}
 }
