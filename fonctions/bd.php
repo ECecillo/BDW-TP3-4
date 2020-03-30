@@ -9,6 +9,7 @@ $dbName = "chat_bdw";
 sur la base de données contenant les tables pour le chat et renvoie une connexion active sur cette base de donnée. Sinon, un message d'erreur est affiché.*/
 function getConnection($dbHost, $dbUser, $dbPwd, $dbName)
 {
+/*
 
 	$link = mysqli_connect($dbHost, $dbUser, $dbPwd, $dbName);
 	if (!$link) {
@@ -20,7 +21,18 @@ function getConnection($dbHost, $dbUser, $dbPwd, $dbName)
 	echo "Information d'hôte : " . mysqli_get_host_info($link) . PHP_EOL;
 	return $link;
 }
-
+*/
+try {
+		$cnx = new PDO("mysql:host=$dbHost;dbname=$dbName", "$dbUser", "$dbPwd"); // on créer la connexion
+		$cnx->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		$cnx->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+		// Connexion module PDO
+	} catch (PDOException $e) {
+		// en cas d'erreur
+		$erreur = $e->getMessage();
+		echo "vous n'êtes pas connecté" . $e->getMessage();
+	}
+	return $cnx;
 }
 
 /*Cette fonction prend en entrée une connexion vers la base de données du chat ainsi 

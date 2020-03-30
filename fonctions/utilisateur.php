@@ -4,16 +4,28 @@
 retourne vrai si le pseudo est disponible (pas d'occurence dans les données existantes), faux sinon*/
 function checkAvailability($pseudo, $link)
 {
+/*
 	$sql_REQ = "SELECT pseudo FROM utilisateur WHERE pseudo='$pseudo';";
 	$sql = executeQuery($link, $sql_REQ);
 	if (mysqli_num_rows($sql) >= 1) {
 		return false;
 	} else {
 		return true;
-	}/* 
+	}
+*/
+/* 
 	$req = "SELECT * FROM utilisateur Where pseudo = \"$pseudo\"";
     $result = executeQuery($link,$req);
-    return mysqli_num_rows($result) == 0; */
+    return mysqli_num_rows($result) == 0; 
+*/
+	$valide = FALSE;
+	$query = "SELECT * FROM `utilisateur` WHERE pseudo ='$pseudo'";
+	if(executeQuery($link, $query) == NULL){
+		$valide = TRUE;
+	}
+
+	return $valide;
+
 }
 
 /*Cette fonction prend en entrée un pseudo et un mot de passe, associe une couleur aléatoire dans le tableau de taille fixe  
