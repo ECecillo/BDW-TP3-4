@@ -21,9 +21,9 @@ array('red', 'green', 'blue', 'black', 'yellow', 'orange') et enregistre le nouv
 function register($pseudo, $hashPwd, $link)
 {
   $color = array('red', 'blue', 'yellow', 'black', 'orange', 'green');
-  $index = rand(0, 6);
+  $index = rand(0, 5);
   $color = $color[$index];
-  $query = "INSERT INTO utilisateur VALUES ('" . $pseudo . "','" . $hashPwd . "','" . $color . "', 'disconnected');";
+  $query = "INSERT INTO utilisateur VALUES (\"$pseudo\", \"$hashPwd\", \"$color\", 'disconnected');";
   executeQuery($link, $query);
 }
 
@@ -39,9 +39,16 @@ function setConnected($pseudo, $link)
 /*Cette fonction prend en entrée un pseudo et mot de passe et renvoie vrai si l'utilisateur existe (au moins un tuple dans le résultat), faux sinon*/
 function getUser($pseudo, $hashPwd, $link)
 {
-	
 	// à compléter
+	$query = "SELECT pseudo FROM utilisateur WHERE pseudo = ".$pseudo." AND mdp = ".$hashPwd." AND etat = 'disconnected';";
+	$result = executeQuery($link, $query);
+	if (mysqli_num_rows($result) >= 1) {
+		return false;
+	} else {
+		return true;
+	}
 }
+
 
 /*Cette fonction renvoie un tableau (array) contenant tous les pseudos d'utilisateurs dont l'état est 'connected'*/
 function getConnectedUsers($link)

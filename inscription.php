@@ -13,6 +13,7 @@ if (isset($_POST["valider"])) {
   $link = getConnection($dbHost, $dbUser, $dbPwd, $dbName);
 
   $available = checkAvailability($pseudo, $link);
+  echo register($pseudo, $hashMdp, $link);
 
   if ($hashMdp == $hashConfirmMdp) {
     if ($available) {
@@ -26,7 +27,7 @@ if (isset($_POST["valider"])) {
   }
   echo $stateMsg;
 }
-
+echo isset($_POST["valider"]);
 ?>
 
 <!doctype html>
@@ -42,7 +43,7 @@ if (isset($_POST["valider"])) {
   <style>
     body {
       width: 50%;
-      padding: 10% 22%;
+      padding: 10% 22%; 
       justify-content: center;
       /* text-align: center; */
     }
@@ -50,7 +51,7 @@ if (isset($_POST["valider"])) {
 
   <!-- à compléter -->
   <h1 style="text-align: center;">Inscription à la BDW</h1>
-  <form action="inscription.php" style="border:1px solid #ccc" method="POST">
+  <form action="inscription.php" style="border:2px solid #ccc; border-radius: 30px;" method="POST">
     <div class="container">
       <div class="fillform" style="margin: 1rem;">
         <label for="pseudo"><b>Pseudo souhaité:</b></label>
@@ -67,8 +68,8 @@ if (isset($_POST["valider"])) {
         <br>
       </div>
       <div class="butt" style="text-align: center; margin: 1rem;">
-        <button type="button" class="cancelbtn">Cancel</button>
-        <button type="submit" class="valider">S'inscrice</button>
+        <button type="button" class="cancelbtn">Annuler</button>
+        <button type="submit" class="valider" name="valider">S'inscrice</button>
       </div>
     </div>
   </form>
