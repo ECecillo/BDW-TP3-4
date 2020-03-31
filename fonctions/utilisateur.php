@@ -66,7 +66,6 @@ function getUser($pseudo, $hashPwd, $link)
 {
 	$existe=FALSE;
 	$query="SELECT * from `utilisateur` WHERE pseudo ='$pseudo' and mdp ='$hashPwd';";
-	echo "$query";
 	$result = executeQuery($link, $query);
 	if($result != NULL){
 		$existe = TRUE;
