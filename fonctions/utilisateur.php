@@ -78,11 +78,9 @@ function getUser($pseudo, $hashPwd, $link)
 /*Cette fonction renvoie un tableau (array) contenant tous les pseudos d'utilisateurs dont l'état est 'connected'*/
 function getConnectedUsers($link)
 {
-	// à compléter
 	$query="SELECT pseudo from utilisateur WHERE etat='connected' ;";
 	$res = executeQuery($link, $query);
-	$res_arr = array($res);
-	return $res_arr;
+	return $res;	
 }
 
 /*Cette fonction prend en entrée un pseudo d'utilisateur et change son état en 'disconnected' dans la relation 
