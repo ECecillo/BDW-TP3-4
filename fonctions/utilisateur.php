@@ -18,14 +18,13 @@ function checkAvailability($pseudo, $link)
     $result = executeQuery($link,$req);
     return mysqli_num_rows($result) == 0; 
 */
-	$valide = FALSE;
-	$query = "SELECT * FROM `utilisateur` WHERE pseudo ='$pseudo'";
-	if(executeQuery($link, $query) == NULL){
-		$valide = TRUE;
-	}
+$valide = FALSE;
+$query = "SELECT * FROM `utilisateur` WHERE pseudo ='$pseudo'";
+if(executeQuery($link, $query) == NULL){
+	$valide = TRUE;
+}
 
-	return $valide;
-
+return $valide;
 }
 
 /*Cette fonction prend en entrée un pseudo et un mot de passe, associe une couleur aléatoire dans le tableau de taille fixe  
@@ -42,36 +41,37 @@ function register($pseudo, $hashPwd, $link)
   else {
 	  echo"Impossible d'enregistrer l'utilisateur avec un pseudo déjà utilisé";
   } */
-  if (checkAvailability($pseudo, $link)) {
-	$color = array('red', 'blue', 'yellow', 'black', 'orange', 'green');
-  $Aleast = $color[rand(0, 5)];
-  $query = "INSERT INTO utilisateur (pseudo, mdp, couleur,etat) VALUES ('$pseudo', '$hashPwd', '$Aleast', 'disconnected');";
-  executeUpdate($link, $query);
-  }
-  else {
-	  echo"Impossible d'enregistrer l'utilisateur avec un pseudo déjà utilisé";
-  }	
+  if(checkAvailability($pseudo, $link)){
+
+	$couleur = array('red', 'green', 'blue', 'black', 'yellow', 'orange');
+	$Aleat = $couleur[rand(0,5)];
+	$query="INSERT INTO utilisateur (pseudo,mdp,couleur,etat) VALUES ('$pseudo','$hashPwd','$Aleat','disconnected')";
+	executeUpdate($link, $query);
+	}
+	else{
+		echo"Impossible d'enregistrer l'utilisateur avec un pseudo déjà utilisé";
+	}	
 }
 
 /*Cette fonction prend en entrée un pseudo d'utilisateur et change son état en 'connected' dans la relation 
 utilisateur via la connexion*/
 function setConnected($pseudo, $link)
 {
-	$query = "UPDATE utilisateur SET etat = 'connected' WHERE pseudo = '$pseudo'; ";
+	$query="UPDATE `utilisateur` SET `etat` = 'connected' WHERE `utilisateur`.`pseudo` = '$pseudo'; ";
 	executeUpdate($link, $query);
 }
 
 /*Cette fonction prend en entrée un pseudo et mot de passe et renvoie vrai si l'utilisateur existe (au moins un tuple dans le résultat), faux sinon*/
 function getUser($pseudo, $hashPwd, $link)
 {
-	// à compléter
-	$query = "SELECT * FROM utilisateur WHERE pseudo = '$pseudo' AND mdp = '$hashPwd' AND etat = 'disconnected';";
+	$existe=FALSE;
+	$query="SELECT * from `utilisateur` WHERE pseudo ='$pseudo' and mdp ='$hashPwd';";
+	echo "$query";
 	$result = executeQuery($link, $query);
-	if (executeQuery($link, $query) != NULL) {
-		return true;
-	} else {
-		return false;
+	if($result != NULL){
+		$existe = TRUE;
 	}
+	return $existe;
 }
 
 
@@ -79,6 +79,10 @@ function getUser($pseudo, $hashPwd, $link)
 function getConnectedUsers($link)
 {
 	// à compléter
+	$query="SELECT pseudo from utilisateur WHERE etat='connected' ;";
+	$res = executeQuery($link, $query);
+	$res_arr = array($res);
+	return $res_arr;
 }
 
 /*Cette fonction prend en entrée un pseudo d'utilisateur et change son état en 'disconnected' dans la relation 

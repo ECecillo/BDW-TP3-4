@@ -3,7 +3,6 @@ session_start();
 require_once 'fonctions/bd.php';
 require_once 'fonctions/utilisateur.php';
 
-
 $stateMsg = "";
 
 if (isset($_POST["valider"])) {
@@ -11,15 +10,16 @@ if (isset($_POST["valider"])) {
   $hashMdp = md5($_POST["mdp"]);
 
   $link = getConnection($dbHost, $dbUser, $dbPwd, $dbName);
-
   $check = getUser($pseudo, $hashMdp, $link);
 
-
-  if ($check) {
-    setConnected($pseduo, $link);
+  if (getUser($pseudo, $hashMdp, $link) == TRUE) {
+    $_SESSION["pseudo"]= $pseudo;
+    $_SESSION["mdp"]= $pwd;
+    setConnected($pseudo, $link);
     header('Location: chat.php?subscribe=yes');
     exit();
-  } else {
+  } 
+  else {
     $stateMsg = "Le couple pseudo/mot de passe ne correspond à aucun utilisateur enregistré";
   }
 echo $stateMsg;
@@ -33,8 +33,7 @@ echo $stateMsg;
 
 <head>
   <meta charset="utf-8">
-  <title>Bienvenue sur le Chat de BDW1</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Page Connexion Chat</title>
 </head>
 
 <body>
@@ -62,7 +61,7 @@ echo $stateMsg;
       </div>
       <div class="butt" style="text-align: center; margin: 1rem;">
         <button type="button" class="cancelbtn"><b>Annuler</b></button>
-        <button type="submit" class="valider"><b>Se Connecter</b></button>
+        <button type="submit" class="valider" name="valider"><b>Se Connecter</b></button>
       </div>
     </div>
     <div style="text-align: center; margin: 1rem;"> <a href="./inscription.php">Première connexion ?</a> </div>

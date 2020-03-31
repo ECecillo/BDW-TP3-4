@@ -13,14 +13,17 @@ if (isset($_POST["valider"])) {
   $link = getConnection($dbHost, $dbUser, $dbPwd, $dbName);
   $available = checkAvailability($pseudo, $link);
 
-    if ($available && ($hashMdp == $hashConfirmMdp)) {
+  if ($hashMdp == $hashConfirmMdp) {
+    if ($available) {
       register($pseudo, $hashMdp, $link);
       header('Location: index.php?subscribe=yes');
       exit();
-    } 
-    else {
-      echo "Le pseudo demandé ou le mdp n'est pas disponible";
+    } else {
+      echo "Le pseudo demand&eacute; est d&eacute;j&agrave; utilis&eacute;";
     }
+  } else {
+     echo "Les mots de passe ne correspondent pas, veuillez r&eacute;essayer";
+  }
 }
 // echo isset($_POST["valider"]);
 ?>
@@ -30,7 +33,7 @@ if (isset($_POST["valider"])) {
 
 <head>
   <meta charset="utf-8">
-  <title>Premi&egrave;re inscription</title>
+  <title>Inscription</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -67,6 +70,7 @@ if (isset($_POST["valider"])) {
         <button type="submit" class="valider" name="valider">S'inscrice</button>
       </div>
     </div>
+    <div style="text-align: center; margin: 1rem;"> <a href="./index.php">Déjà inscrit ?</a> </div>
   </form>
 
 </body>
