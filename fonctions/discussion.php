@@ -6,7 +6,9 @@ $historySize = 10;// modifiable
 Un enregistrement est une chaine de caractères de la forme "auteur;valeur;date;heure;type".*/
 function getHistory($nbRecord, $link)
 {
-	// à compléter
+	$query = "SELECT * FROM `message` ORDER BY message.date ASC, heure DESC LIMIT $nbRecord;";
+	$result = executeQuery($link, $query);
+	return $result;
 }
 
 /*Cette fonction prend en entrée un nouveau message soumis par un utilisateur et stocke le message 

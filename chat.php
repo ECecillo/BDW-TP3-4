@@ -11,13 +11,7 @@ $link = getConnection($dbHost, $dbUser, $dbPwd, $dbName);
 $pseudo = $_SESSION['pseudo'];
 $other_user = getConnectedUsers($link);
 
-$html = "<table>";
-foreach ($other_user as $row) {
-	$html .= "<tr>";
-
-	$html .= "</tr>";
-}
-$html .= "</table>";
+$history = getHistory($historySize, $link);
 
 ?>
 
@@ -46,6 +40,10 @@ $html .= "</table>";
 			letter-spacing: 1.5px;
 			padding: 15% 0px;
 			font-size: 14px;
+		}
+
+		td {
+			padding: 0px 1rem;
 		}
 	</style>
 
@@ -85,6 +83,34 @@ $html .= "</table>";
 				?>
 			</tbody>
 		</table>
+	</div>
+	<div class="Messages">
+		<table>
+				<thead>
+					<tr>
+						<td><b>Auteurs</b></td>
+						<td><b>Messages</b></td>
+						<td><b>Dates</b></td>
+						<td><b>Heures</b></td>
+					</tr>
+				</thead>
+				<tbody>
+				<?php
+					foreach ($history as $msg) {
+						echo"
+						<tr>
+							<td> <i>". $msg['auteur'] ."</i> </td>
+							<td> <i>". $msg['valeur'] ."</i> </td>
+							<td> <i>". $msg['date'] ." </i></td>
+							<td> <i>". $msg['heure'] ."</i> </td>
+						</tr>
+						";
+					}
+					
+				?>
+				</tbody>
+		</table>
+		
 	</div>
 </body>
 
