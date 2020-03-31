@@ -94,6 +94,7 @@ function executeUpdate($link, $query)
 		$sth->execute();
 
 		return $sth;
+			
 	} catch (PDOException $e) {
 		$erreur = $e->getMessage();
 		echo"Erreur requête";
