@@ -30,21 +30,42 @@ $history = getHistory($historySize, $link);
 		}
 
 		.Users {
-			box-shadow: 12px 12px 2px 1px rgba(0, 0, 0, .6);
-			width: 18%;
+			/* box-shadow: 12px 12px 2px 1px rgba(0, 0, 0, .6); */
+			box-shadow: 
+       inset 0 -3em 3em rgba(0,0,0,0.1), 
+             0 0  0 2px rgb(0,0,0),
+             0.3em 0.3em 1em rgba(0,0,0,0.6);
 			height: 30%;
-			border-radius: 40px;
+			border-radius: 40px; 
 			text-align: center;
 			justify-content: center;
-			margin-right: 2rem;
+			margin: 1rem 2rem;
 			letter-spacing: 1.5px;
 			padding: 15% 0px;
 			font-size: 14px;
+			float: left;
 		}
 
-		td {
-			padding: 0px 1rem;
+		.Messages {
+			float: right;
+			box-shadow: 
+       inset 0 -3em 3em rgba(0,0,0,0.1), 
+             0 0  0 2px rgb(0,0,0),
+             0.3em 0.3em 1em rgba(0,0,0,0.6);
+			border-radius: 40px;
+			margin: 2rem 2rem;
+			height: 30%;
 		}
+		tr {
+
+		}
+		.msg-content {
+			padding: 0.5rem 7rem;
+		}
+		.title-content {
+			padding: 0.5rem 7rem;
+		}
+		
 	</style>
 
 
@@ -88,10 +109,10 @@ $history = getHistory($historySize, $link);
 		<table>
 				<thead>
 					<tr>
-						<td><b>Auteurs</b></td>
-						<td><b>Messages</b></td>
-						<td><b>Dates</b></td>
-						<td><b>Heures</b></td>
+						<td class="title-content"><b>Auteurs</b></td>
+						<td class="title-content"><b>Messages</b></td>
+						<td class="title-content"><b>Dates</b></td>
+						<td class="title-content"><b>Heures</b></td>
 					</tr>
 				</thead>
 				<tbody>
@@ -99,10 +120,10 @@ $history = getHistory($historySize, $link);
 					foreach ($history as $msg) {
 						echo"
 						<tr>
-							<td> <i>". $msg['auteur'] ."</i> </td>
-							<td> <i>". $msg['valeur'] ."</i> </td>
-							<td> <i>". $msg['date'] ." </i></td>
-							<td> <i>". $msg['heure'] ."</i> </td>
+							<td class='msg-content'> <i>". $msg['auteur'] .":</i> </td>
+							<td class='msg-content'> <i>". $msg['valeur'] ."</i> </td>
+							<td class='msg-content'> <i>". $msg['date'] .":</i></td>
+							<td class='msg-content'> <i>". $msg['heure'] .":</i> </td>
 						</tr>
 						";
 					}
