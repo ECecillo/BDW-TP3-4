@@ -86,7 +86,9 @@ function getConnectedUsers($link)
 utilisateur via la connexion*/
 function setDisconnected($pseudo, $link)
 {
-	// à compléter
+	$query="UPDATE `utilisateur` SET `etat` = 'disconnected' WHERE `utilisateur`.`pseudo` = '$pseudo'; ";
+	$resultat = executeUpdate($link, $query);
+	return $resultat;
 }
 
 /*Cette fonction renvoie la couleur associée à un utilisateur pour son affichage dans le fil de discussion*/
