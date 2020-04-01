@@ -55,10 +55,9 @@ $history = getHistory($historySize, $link);
 			border-radius: 40px;
 			margin: 2rem 2rem;
 			height: 30%;
+			text-align: center;
 		}
-		tr {
 
-		}
 		.msg-content {
 			padding: 0.5rem 7rem;
 		}
@@ -104,6 +103,9 @@ $history = getHistory($historySize, $link);
 				?>
 			</tbody>
 		</table>
+		<form action ="chat.php" method="post">
+			<button name="Deconnecter" class="envoyer" style="margin-top: 2rem;">Se Déconnecter</button>
+		</form>
 	</div>
 	<div class="Messages">
 		<table>
@@ -131,7 +133,11 @@ $history = getHistory($historySize, $link);
 				?>
 				</tbody>
 		</table>
-		
+		<form action ="chat.php" method="post" style="margin-top: 2rem;">
+			<input type="text" name="text" style="padding: 2rem 25rem;"> <br>
+			<button name="Envoyer" class="envoyer" style="margin: 2rem 2rem;">Envoyer</button>
+			<button name="Rafraichir" class="envoyer">Rafraichir</button>
+		</form>
 	</div>
 </body>
 

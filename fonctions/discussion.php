@@ -17,7 +17,9 @@ Il faudra faire attention à échapper les caractères spéciaux du message pour
 de gérer automatiquement cet échappement de caractères.*/
 function submitMessage($auteur, $message, $link)
 {
-	// à compléter
+	$date_message = date('Y-m-d H:i:s', $link);
+	$query="INSERT INTO `message` (auteur, `message`.`date`, heure, valeur, `message`.`type`) VALUES ('$$auteur', '$lastname', , $message ,'type')";
+	$msg = mysqli_real_escape_string($link, );
 }
 
 /*Cette fonction prend en entrée un nouveau message soumis par un utilisateur et stocke le message 
