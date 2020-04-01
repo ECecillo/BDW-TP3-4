@@ -13,6 +13,21 @@ $other_user = getConnectedUsers($link);
 
 $history = getHistory($historySize, $link);
 
+if(isset($_POST['Envoyer']) && $_POST['text'] != NULL) {
+	$message = $_POST['text'];
+	submitMessage($pseudo, $message, $link);
+}
+if(isset($_POST['Rafraichir'])) {
+	header('Location: chat.php?subscribe=yes');
+}
+
+if(isset($_POST['Deconnecter'])) {
+	setDisconnected($pseudo, $link);
+	session_unset();
+	header('Location: index.php?subscribe=yes');
+}
+
+
 ?>
 
 <!doctype html>
@@ -104,7 +119,7 @@ $history = getHistory($historySize, $link);
 			</tbody>
 		</table>
 		<form action ="chat.php" method="post">
-			<button name="Deconnecter" class="envoyer" style="margin-top: 2rem;">Se Déconnecter</button>
+			<button name="Deconnecter" class="deconnecter" style="margin-top: 2rem;">Se Déconnecter</button>
 		</form>
 	</div>
 	<div class="Messages">
